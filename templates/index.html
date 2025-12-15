@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<header class="hero">
+    <div>
+        <h1>AI Traffic Monitoring Dashboard</h1>
+        <p class="subtitle">Quick snapshot of the latest analysis.</p>
+    </div>
+</header>
+
+<section class="cards">
+    <div class="metric-card">
+        <div class="metric-title">Total Vehicles (last analysis)</div>
+        <div class="metric-value">{{ total_count }}</div>
+    </div>
+
+    <div class="metric-card">
+        <div class="metric-title">Traffic Status</div>
+        <div class="badge {{ status_class | default('status-none') }}">
+            {{ status_label | default('No Data') }}
+        </div>
+
+    </div>
+
+    </div>
+
+    <div class="metric-card">
+        <div class="metric-title">Per-Type (last analysis)</div>
+        <div class="pill-group">
+            {% if totals %}
+            {% for k, v in totals.items() %}
+            <span class="pill">{{ k }}: {{ v }}</span>
+            {% endfor %}
+            {% else %}
+            <span class="muted">No data yet</span>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="grid">
+    <div class="card">
+        <h2>📊 Vehicles Over Time</h2>
+        {% if "vehicles_over_time.png" in charts %}
+        <img src="{{ url_for('static', filename='vehicles_over_time.png') }}" alt="Vehicles over time">
+        {% else %}
+        <p class="muted">Chart not found. Run an analysis first.</p>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h2>🚗 Vehicle Types Distribution</h2>
+        {% if "vehicle_types.png" in charts %}
+        <img src="{{ url_for('static', filename='vehicle_types.png') }}" alt="Vehicle types">
+        {% else %}
+        <p class="muted">Chart not found. Run an analysis first.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

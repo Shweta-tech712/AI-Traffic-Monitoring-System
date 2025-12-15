@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<header class="hero">
+  <div>
+    <h1>Upload Traffic Video</h1>
+    <p class="subtitle">Supported: mp4, avi, mov, mkv</p>
+  </div>
+</header>
+
+<div class="card" style="max-width: 680px; margin: 0 auto;">
+  <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+    <label class="label">Choose a video file</label>
+    <input class="file-input" type="file" name="video" accept=".mp4,.avi,.mov,.mkv" required>
+    <button class="btn" type="submit">Run Analysis</button>
+  </form>
+  <p class="muted" style="margin-top:10px;">Note: The app processes the video immediately and generates charts & CSVs.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<header class="hero">
+  <div>
+    <h1>Analytics & Reports</h1>
+    <p class="subtitle">View generated charts and download CSV outputs.</p>
+  </div>
+</header>
+
+<section class="grid">
+  {% if charts %}
+    {% for chart in charts %}
+      <div class="card">
+        <h2>{{ chart.replace('_',' ').replace('.png','') | title }}</h2>
+        <img src="{{ url_for('static', filename=chart) }}" alt="{{ chart }}">
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="card">
+      <p class="muted">No charts yet. Run an analysis first.</p>
+    </div>
+  {% endif %}
+</section>
+
+<section class="card" style="margin-top: 20px;">
+  <h2>Downloads</h2>
+  <div class="pill-group">
+    {% if results_exists %}
+      <a class="pill pill-link" href="{{ url_for('download', filename='results.csv') }}">Download results.csv</a>
+    {% else %}
+      <span class="pill disabled">results.csv (not available)</span>
+    {% endif %}
+
+    {% if totals_exists %}
+      <a class="pill pill-link" href="{{ url_for('download', filename='vehicle_totals.csv') }}">Download vehicle_totals.csv</a>
+    {% else %}
+      <span class="pill disabled">vehicle_totals.csv (not available)</span>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+<header class="hero">
+    <div>
+        <h1>AI Traffic Monitoring Dashboard</h1>
+        <p class="subtitle">Quick snapshot of the latest analysis.</p>
+    </div>
+</header>
+<div class="container my-4">
+  <div class="row g-4">
+
+    <!-- Total Vehicles -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h6 class="text-muted mb-2">Total Vehicles (last analysis)</h6>
+          <h2 class="fw-bold">{{ total_count }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Traffic Status -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h6 class="text-muted mb-3">Traffic Status</h6>
+          <span class="badge {{ status_class | default('status-none') }} fs-5 px-4 py-2">
+            {{ status_label | default('No Data') }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle Types -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h6 class="text-muted mb-3">Per-Type (last analysis)</h6>
+
+          {% if totals %}
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+              {% for k, v in totals.items() %}
+                <span class="badge bg-secondary px-3 py-2">
+                  {{ k }}: {{ v }}
+                </span>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="text-muted">No data yet</p>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row g-4">
+
+    <!-- Vehicles Over Time -->
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title mb-3">📊 Vehicles Over Time</h5>
+
+          {% if "vehicles_over_time.png" in charts %}
+            <img
+              src="{{ url_for('static', filename='vehicles_over_time.png') }}"
+              class="img-fluid rounded"
+              alt="Vehicles over time"
+            >
+          {% else %}
+            <p class="text-muted">Chart not found. Run an analysis first.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle Types Distribution -->
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title mb-3">🚗 Vehicle Types Distribution</h5>
+
+          {% if "vehicle_types.png" in charts %}
+            <img
+              src="{{ url_for('static', filename='vehicle_types.png') }}"
+              class="img-fluid rounded"
+              alt="Vehicle types"
+            >
+          {% else %}
+            <p class="text-muted">Chart not found. Run an analysis first.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

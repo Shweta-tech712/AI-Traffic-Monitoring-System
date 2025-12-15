@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container my-4">
+
+  <!-- Page Header -->
+  <h1 class="about-title">About AI Traffic System</h1>
+  <p class="about-subtitle">
+    An AI-powered traffic monitoring system that detects, counts, and analyzes vehicles
+    in real-time from video feeds.
+  </p>
+
+  <!-- Project Info + Contributors -->
+  <div class="row g-4 mt-4">
+
+    <div class="col-md-6">
+      <div class="card about-card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="mb-3">📌 Project Info</h5>
+          <p><strong>Name:</strong> {{ project.name }}</p>
+          <p><strong>Version:</strong> {{ project.version }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card about-card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="mb-3">👩‍💻 Developed by </h5>
+          <ul class="mb-0">
+            {% for contributor in project.contributors %}
+              <li>{{ contributor }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Libraries -->
+  <div class="card about-card shadow-sm mt-4">
+    <div class="card-body">
+      <h5 class="mb-3">⚙️ Libraries Used</h5>
+      <div class="d-flex flex-wrap gap-2">
+        {% for lib in project.libraries %}
+          <span class="badge bg-secondary px-3 py-2">{{ lib }}</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Closing line -->
+  <p class="text-muted mt-4">
+    Built to demonstrate practical applications of computer vision and AI in intelligent
+    transportation systems.
+  </p>
+
+</div>
+
+{% endblock %}
+
+<style>
+  .about-title {
+  color: #f9fafb;
+}
+
+.about-subtitle {
+  color: #9ca3af;
+  max-width: 700px;
+}
+
+.about-card {
+  background-color: #111827;
+  border: 1px solid #1f2933;
+  border-radius: 14px;
+}
+
+</style>
